@@ -7,6 +7,7 @@ const pingRouter = require("./ping");
 const usersRouter = require("./users");
 const paramsRouter = require("./params");
 const productRouter = require("./product");
+const authRouter = require("./auth");
 
 // const mid1 = require("../middlewares/mid1");
 // const mid2 = require("../middlewares/mid2");
@@ -18,20 +19,21 @@ Router.use("/ping", pingRouter);
 Router.use("/users", usersRouter);
 Router.use("/params", paramsRouter);
 Router.use("/product", productRouter);
+Router.use("/auth", authRouter);
 
 Router.post("/", (req, res) => {
   //  console.log(req.body);
   res.send(req.body);
 });
 
-Router.options("/*", function (req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
-  );
-  res.send(200);
-});
+// Router.options("/*", function (req, res) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Content-Type, Authorization, Content-Length, X-Requested-With"
+//   );
+//   res.send(200);
+// });
 
 module.exports = Router;

@@ -30,6 +30,14 @@ const getVideogamesWithId = (req, res) => {
     });
 };
 
+const getAllVideogames = (req, res) => {
+  paramsModel
+    .getAllVideogames()
+    .then((result) => writeResponse(res, null, 200, result))
+    .catch((err) => writeError(res, 500, err));
+};
+
 module.exports = {
   getVideogamesWithId,
+  getAllVideogames,
 };
