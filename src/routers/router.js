@@ -14,6 +14,7 @@ const productRouter = require("./product");
 // config router
 // use subRouter
 // Router.use("/ping", mid1, mid2, pingRouter);
+
 Router.use("/ping", pingRouter);
 Router.use("/users", usersRouter);
 Router.use("/params", paramsRouter);
@@ -24,14 +25,15 @@ Router.post("/", (req, res) => {
   res.send(req.body);
 });
 
-Router.options("/*", function (req, res) {
+Router.options("/*", (req, res, next) => {
+  console.log("options");
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
   res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
+    "Access-Control-Allow-Methods",
+    "GET,PUT,POST,PATCH,DELETE,OPTIONS"
   );
-  res.send(200);
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
 });
 
 module.exports = Router;

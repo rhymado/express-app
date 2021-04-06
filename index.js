@@ -2,7 +2,7 @@ require("dotenv").config();
 // import express from 'express';
 const express = require("express");
 const logger = require("morgan");
-const cors = require("cors");
+// const cors = require("cors");
 
 const Router = require("./src/routers/router");
 
@@ -25,7 +25,7 @@ const urlEncodedParser = express.urlencoded({ extended: false });
 // true => parsing menggunakan library querystring
 
 app.use(logger("dev"));
-app.use(cors());
+// app.use(cors());
 app.use(jsonParser);
 app.use(urlEncodedParser);
 // use router

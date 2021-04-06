@@ -17,7 +17,7 @@ const productModel = (body) => {
 };
 
 Router.post("/", (req, res) => {
-//   console.log(req.headers);
+  //   console.log(req.headers);
   const {
     product_name,
     product_description,

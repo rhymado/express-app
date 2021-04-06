@@ -1,7 +1,9 @@
-const writeResponse = (res, header, status, result) => {
+const writeResponse = (res, headers, status, result) => {
   let response;
-  if (header) {
-    res.header(header);
+  if (headers) {
+    for (let header in headers) {
+      res.append(header, headers[header]);
+    }
   }
   if (result) {
     response = {
