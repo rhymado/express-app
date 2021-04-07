@@ -34,7 +34,17 @@ const VIPOnly = (req, res, next) => {
   writeError(res, 403, { msg: "Forbidden" });
 };
 
+const byRole = (role) => (req, res, next) => {
+  const token = req.header("x-access-token").split(" ")[1];
+  //   console.log(token);
+  const decodedToken = jwt.decode(token, { complete: true });
+  //   console.log(decodedToken);
+  // if (decodedToken.payload.role === "VIP") return next();
+  // writeError(res, 403, { msg: "Forbidden" });
+};
+
 module.exports = {
   managerOnly,
   VIPOnly,
+  byRole,
 };

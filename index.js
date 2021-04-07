@@ -25,8 +25,9 @@ const urlEncodedParser = express.urlencoded({ extended: false });
 // true => parsing menggunakan library querystring
 
 app.use(logger("dev"));
-app.use(cors());
+// app.use(cors());
 app.use(jsonParser);
 app.use(urlEncodedParser);
 // use router
+app.use(express.static("public"));
 app.use(Router);

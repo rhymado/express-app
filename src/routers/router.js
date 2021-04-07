@@ -5,19 +5,29 @@ const Router = require("express").Router();
 // const dbMySql = require("./src/database/dbMySql");
 const pingRouter = require("./ping");
 const usersRouter = require("./users");
-const paramsRouter = require("./params");
+const videogamesRouter = require("./videogames");
 const productRouter = require("./product");
 const authRouter = require("./auth");
-
+const multerUploadImage = require("../middlewares/uploadImage");
 // const mid1 = require("../middlewares/mid1");
 // const mid2 = require("../middlewares/mid2");
 
+Router.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "GET,PATCH,POST,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "x-access-token");
+    return res.send(200);
+  }
+  next();
+  // res.send(200);
+});
 // config router
 // use subRouter
 // Router.use("/ping", mid1, mid2, pingRouter);
 Router.use("/ping", pingRouter);
 Router.use("/users", usersRouter);
-Router.use("/params", paramsRouter);
+Router.use("/videogames", videogamesRouter);
 Router.use("/product", productRouter);
 Router.use("/auth", authRouter);
 
@@ -26,14 +36,13 @@ Router.post("/", (req, res) => {
   res.send(req.body);
 });
 
-// Router.options("/*", function (req, res) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Content-Type, Authorization, Content-Length, X-Requested-With"
-//   );
-//   res.send(200);
-// });
+Router.post("/upload", multerUploadImage.single("image"), (req, res) => {
+  const { file } = req;
+  const url = `/images/${file.filename}`;
+  res.status(200).json({
+    msg: "Upload Success",
+    url,
+  });
+});
 
 module.exports = Router;
