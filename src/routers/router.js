@@ -17,7 +17,7 @@ Router.use((req, res, next) => {
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "GET,PATCH,POST,DELETE,OPTIONS");
     res.header("Access-Control-Allow-Headers", "x-access-token");
-    return res.send(200);
+    return res.sendStatus(200);
   }
   next();
   // res.send(200);
@@ -43,6 +43,11 @@ Router.post("/upload", multerUploadImage.single("image"), (req, res) => {
     msg: "Upload Success",
     url,
   });
+});
+
+const authMiddleware = require("../middlewares/authorize");
+Router.get("/", authMiddleware.byRole("Manager"), (req, res) => {
+  res.json({ msg: "Hello" });
 });
 
 module.exports = Router;
